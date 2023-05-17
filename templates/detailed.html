@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+{% extends 'side.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>    /* width */
+        ::-webkit-scrollbar {
+          width: 16px;
+        }
+        
+        /* Track */
+        ::-webkit-scrollbar-track {
+          box-shadow: inset 0 0 5px grey; 
+          border-radius: 50px;
+        }
+         
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+          background: black; 
+          border-radius: 50px;
+        }
+        
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+          background: black;  
+        }</style>
+</head>
+<body>
+    {% block content %}
+    <div class="bb">
+    <div class="border border-dark border-5 rounded-9" style="
+    min-height: 700px; width: 1000px; bottom:25px; overflow: hidden; float:inline-end; padding: 50px; border-radius: 25px;  font-size: 22px; font-family: Times New Roman; border-color:black; border-width:100px; background-color:antiquewhite"; >
+    <div style="text-align: center; font-size: 30px;"><strong><label>Complaint Details</label></strong></div><br>
+    <label>Complaint ID  :&nbsp;</label>{{ob.id}}<br><br>
+    <label>Complaint Content  :&nbsp; </label><br>{{ob.complaint_details}}<br><br>
+    <label>Complaint regarding Branch  :&nbsp; </label>{{ob.branch}}<br><br>
+    <label>Category of Complaint  : &nbsp;</label>{{ob.category}}<br><br>
+    <label>Complaint Status  :&nbsp;</label>{% if ob.status == "SO" %}
+    Solved
+    {% elif ob.status == "PN" %}
+    Pending
+    {% elif ob.status == "RJ" %}
+    Rejected<br>
+    {% endif %}<br><br><br><br><br>
+    <a href="{% url 'changestatus' ob.id %}" class="btn btn-info">Change status to{% if ob.status == "SO" %}
+      Pending
+      {% elif ob.status == "PN" %}
+      Solved<br>
+      {% endif %}</a>
+      {% if ob.status == "SO" %}<a href="{% url 'feedback' ob.id %}" class="btn btn-info">Add Feedback</a> {% endif %}
+      <a href="{% url 'reject' ob.id %}" class="btn btn-danger">Reject</a>
+      <a href="{% url 'detail' %}" class="btn btn-info">Go back</a>
+   </div>
+</div>
+
+    {%endblock%}
+</body>
+</html>

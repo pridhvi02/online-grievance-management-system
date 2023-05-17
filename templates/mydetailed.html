@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+{% extends 'side.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>    /* width */
+        ::-webkit-scrollbar {
+          width: 16px;
+        }
+        
+        /* Track */
+        ::-webkit-scrollbar-track {
+          box-shadow: inset 0 0 5px grey; 
+          border-radius: 50px;
+        }
+         
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+          background: black; 
+          border-radius: 50px;
+        }
+        
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+          background: black;  
+        }</style>
+</head>
+<body>
+    {% block content %}
+    <div class="bb">
+    <div class="border border-dark border-5 rounded-9" style="
+    min-height: 700px; width: 1000px; bottom:25px; overflow: hidden; float:inline-end; padding: 50px; border-radius: 25px;  font-size: 22px; font-family: Times New Roman; border-color:black; border-width:100px; background-color:antiquewhite"; >
+    <div style="text-align: center; font-size: 30px;"><strong><label>Complaint Details</label></strong></div><br>
+    <label>Complaint ID  :&nbsp;</label>{{ob.id}}<br><br>
+    <label>Complaint Content  :&nbsp; </label><br>{{ob.complaint_details}}<br><br>
+    <label>Complaint regarding Branch  :&nbsp; </label>{{ob.branch}}<br><br>
+    <label>Category of Complaint  : &nbsp;</label>{{ob.category}}<br><br><br>
+    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      View Status
+    </button>
+    <a href="{% url 'mycomplaint' %}" class="btn btn-info">Go back</a>
+   </div>
+</div>
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Status:<strong>{% if ob.status == "SO" %}
+          Solved
+          {% elif ob.status == "PN" %}
+          Pending
+          {% elif ob.status == "RJ" %}
+          Rejected<br>
+          {% endif %}</strong></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Your complaint is 
+        {% if ob.status == "SO" %}
+    Solved.Check for the Feedback.
+    {% elif ob.status == "PN" %}
+    under consideration.Check status later.
+    {% elif ob.status == "RJ" %}
+    Rejected.Reopen the Complaint if you need.<br>
+    {% endif %}
+      </div>
+      <div class="modal-footer">
+        {% if ob.status == "SO" %}<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+          View Feedback
+        </button>
+         {% endif %}
+        {% if ob.status == "RJ" %}<a href="{% url 'reopen' ob.id %}"><button type="button" class="btn btn-danger">Reopen Complaint</button></a>{% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Feedback</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {{feed.feedback}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+    {%endblock%}
+</body>
+</html>

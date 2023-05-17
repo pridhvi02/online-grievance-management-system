@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+{% extends 'side.html' %}
+{%load static %}
+{% load widget_tweaks %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+     
+    </style>
+</head>
+
+<body>
+    {% block content %}
+    <br><br>
+    
+    <h4 class="text-center alert alert-info">Complaints</h4>
+    <div class="login-form">
+    <form method="GET">
+     {{f.form}}
+     <button class="btn btn-info">Search</button>
+    </form>
+  </div>
+  <br>
+    <div class="h-100 d-flex align-items-center justify-content-center">
+      
+   {%if coms%}
+    <table class="table table-hover">
+        <thead>
+          <tr class="table-primary">
+            <th scope="col">#</th>
+            <th scope="col">Branch</th>
+            <th scope="col">Category</th>
+            <th scope="col">Status</th>
+            <th scope="col">Operations</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for count,com in coms %}
+          <tr>
+            <th scope="row">{{count}}</th>
+            <td>{{com.branch}}</td>
+            <td>{{com.category}}</td>
+            <td>{% if com.status == "SO" %}<i class="bi bi-patch-check-fill" style="font-size: 2rem; color: rgb(24, 196, 59);"></i>{% elif com.status == "RJ"%}<i class="bi bi-x-circle" style="font-size: 2rem; color: rgb(203, 2, 2);"></i>{% elif com.status == "PN"%}<i class="bi bi-pencil-square" style="font-size: 2rem; color: rgb(1, 1, 1);"></i>{% endif %}</td>
+            <td><a href="{% url 'detailed' com.id %}" class="btn btn-info">Details</a>&nbsp;&nbsp;<!--<a href="{% url 'delete' com.id %}" class="btn btn-danger">Delete</a></td>-->
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      {% else %}
+      <h5 class="alert alert-warning">No Complaints</h5>
+      {% endif %}
+    {% endblock %}
+  </div>
+
+</body>
+</html>

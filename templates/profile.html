@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% extends 'side.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block content %}
+    <div class="bbb">
+    <div class="border border-dark border-5 rounded-9" style="
+    height: 700px; width: 700px; padding: 50px; border-radius: 25px; overflow: auto; font-size: 22px; font-family: Times New Roman; border-color:black; border-width:100px; background-color:antiquewhite"; >
+    <div style="text-align: center; font-size: 30px;"><strong><label> </label></strong></div><br>
+    <form method="POST">
+        {% csrf_token %}
+  {{form.as_p}}
+  {{stu_form.as_p}}
+  <input type="submit">
+</form>
+   </div>
+</div>
+
+    {%endblock%}
+</body>
+</html>

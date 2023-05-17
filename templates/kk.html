@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+{% extends 'side.html' %}
+{% load widget_tweaks %}
+{% load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kk</title>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="{% static 'styles/register.css' %}" rel="stylesheet">
+    <style>
+            /* width */
+::-webkit-scrollbar {
+    width: 16px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 50px;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: black; 
+    border-radius: 50px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: black;  
+  }
+    </style>
+</head>
+<body>
+    {% block content %}
+    <br><br>
+    <div class="h-100 d-flex align-items-center justify-content-center">
+        <span class="border border-primary border-5 rounded-9" style=" background-color: #eee;
+        height: 700px; width: 700px; padding: 50px; border-radius: 25px;">
+        <h4 class="text-center alert alert-info">Enter your Complaint</h4>
+    <form  method="POST">
+        <br>
+        {% csrf_token %}
+        {% render_field form.complaint_details placeholder="Enter Complaint Details" class="rounded-input" name='complaint_details' %}
+        <br><br>
+       <label>Branch:</label>&nbsp;{% render_field form.branch class="btn btn-info btn-sm dropdown-toggle" name='branch' %}<br><br>
+       <label>Category:</label>&nbsp{% render_field form.category class="btn btn-info btn-sm dropdown-toggle" name='category' %}<br><br>
+        <input type="submit" class="btn btn-primary">
+    </form>
+</span>
+    {%endblock%}
+</div>
+</body>
+</html>
